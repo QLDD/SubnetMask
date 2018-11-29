@@ -32,16 +32,7 @@ let SubnetMask = {
                         broadcast: broadcast
                     },
                     message: 'success'
-                }
-                /**
-                 * 可用ip
-                 * 掩码
-                 * 网络
-                 * 第一可用
-                 * 最后可用
-                 * 广播
-                 * 
-                 */
+                }               
             } else {
                 return {
                     success: false,
@@ -112,4 +103,6 @@ let SubnetMask = {
         }			
 		return lowMask;
     }
-}
+};
+
+module.exports = SubnetMask;
