@@ -22,8 +22,7 @@ let SubnetMask = {
                 let lastAvailable = broadcast.substring(0, broadcast.lastIndexOf('.')) + '.' + (Number(broadcast.substring(broadcast.lastIndexOf('.') + 1)) - 1);
                 let availableIpAmount = Number(broadcast.substring(broadcast.lastIndexOf('.') + 1)) - Number(network.substring(network.lastIndexOf('.') + 1)) - 1;
                 return {
-                    success: true,
-                    code: '1000',
+                    success: true,                    
                     data: {
                         availableIpAmount: availableIpAmount,
                         mask: this.toIpString(maskNum),
@@ -31,22 +30,17 @@ let SubnetMask = {
                         firstAvailable: firstAvailable,
                         lastAvailable: lastAvailable,                        
                         broadcast: broadcast
-                    },
-                    message: 'success'
+                    }                    
                 }               
             } else {
                 return {
-                    success: false,
-                    code: '1001',
-                    data: 'Wrong formatted IP address',
+                    success: false,                                        
                     message: 'Wrong formatted IP address',
                 }
             }
         } else {
             return {
-                success: false,
-                code: '1002',
-                data: 'Wrong formatted Mask bit',
+                success: false,                                
                 message: 'Wrong formatted Mask bit',
             }
         }        
@@ -103,7 +97,37 @@ let SubnetMask = {
             lowMask += ( 1 << i ) >>> 0;
         }			
 		return lowMask;
+    },
+
+    /**
+     * 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中
+     * @param {*} ip 
+     * @param {*} ipCIDR 
+     * @param {*} maskBit 
+     */
+    checkNetworkAndIpCalculator: function (ip, ipCIDR, maskBit) {
+        if (!this.isIP(ip)) {
+            return false;
+        }
+        if (!this.isIP(ipCIDR)) {
+            return false;
+        }
+        if (maskBit === +maskBit && 0 <= maskBit && maskBit <= 32) {
+            let result = this.networkAndIpCalculator(ipCIDR, maskBit);
+            if (!result.success) {
+                return false;
+            }
+            let firstN = +result.data.firstAvailable.substring(result.data.firstAvailable.lastIndexOf('.') + 1);
+            let lastN = +result.data.lastAvailable.substring(result.data.lastAvailable.lastIndexOf('.') + 1);
+            let ipN = +ip.substring(ip.lastIndexOf('.') + 1);
+            if ( firstN <= ipN && ipN <= lastN) {
+                return true;
+            }
+        } else {
+            return false;
+        }                                
     }
+
 };
 
 module.exports = SubnetMask;
