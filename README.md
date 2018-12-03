@@ -18,7 +18,7 @@ npm install subnetmask
 | networkAndIpCalculator()      | ip(string)、maskBit(number)             | 根据ip和掩码位，查询网络和ip地址                             |
 | checkNetworkAndIpCalculator() | ip(string)、ip(string)、maskBit(number) | 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中 |
 
-
+### Demo
 
 ``` js
 const SubnetMask = require('subnetmask');
