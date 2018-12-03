@@ -2,6 +2,8 @@
 
 ### Introduction
 
+- 子网掩码相关方法
+
 ### Installation
 
 ``` 
@@ -10,15 +12,28 @@ npm install subnetmask
 
 ### Methods
 
-```
+| method                      | param                                   | description                                                  |
+| --------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| ipCheck()                   | ip(string)                              | 检测是否为ip地址                                             |
+| networkAndIpCalculator      | ip(string)、maskBit(number)             | 根据ip和掩码位，查询网络和ip地址                             |
+| checkNetworkAndIpCalculator | ip(string)、ip(string)、maskBit(number) | 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中 |
+
+
+
+``` js
 const SubnetMask = require('subnetmask');
 
-// params: IP and Mask
+// 检测是否为IP地址
+let result = SubnetMask.ipCheck('127.0.0.1');
+
+// 返回： true 或 false
+
+// 根据IP和掩码位，查网络和IP地址
 let data = SubnetMask.networkAndIpCalculator('127.0.0.1', 28);
-console.log(data);
+
+// 成功：data ==>
 // { 
 //     success: true,
-//     code: '1000',
 //     data:{ 
 //         availableIpAmount: 14,
 //         mask: '255.255.255.240',
@@ -27,6 +42,15 @@ console.log(data);
 //         lastAvailable: '172.1.1.14',
 //         broadcast: '172.1.1.15' 
 //     },
-//     message: 'success'
 // }
+// 失败： data ==>
+// {
+//     success: false,
+//     message: 'errorInfo'
+// }
+
+// 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中
+let rtn = SubnetMask.checkNetworkAndIpCalculator('127.1.1.2', '127.0.0.1', 28);
+
+// 返回： true 或 false
 ```
