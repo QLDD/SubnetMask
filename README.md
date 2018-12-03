@@ -14,23 +14,21 @@ npm install subnetmask
 
 | method                      | param                                   | description                                                  |
 | --------------------------- | --------------------------------------- | ------------------------------------------------------------ |
-| ipCheck()                   | ip(string)                              | 检测是否为ip地址                                             |
-| networkAndIpCalculator      | ip(string)、maskBit(number)             | 根据ip和掩码位，查询网络和ip地址                             |
-| checkNetworkAndIpCalculator | ip(string)、ip(string)、maskBit(number) | 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中 |
+| ipIP()                   | ip(string)                              | 检测是否为ip地址                                             |
+| networkAndIpCalculator()      | ip(string)、maskBit(number)             | 根据ip和掩码位，查询网络和ip地址                             |
+| checkNetworkAndIpCalculator() | ip(string)、ip(string)、maskBit(number) | 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中 |
 
 
 
 ``` js
 const SubnetMask = require('subnetmask');
 
-// 检测是否为IP地址
-let result = SubnetMask.ipCheck('127.0.0.1');
-
+// 1、检测是否为IP地址
+let result = SubnetMask.ipIP('127.0.0.1');
 // 返回： true 或 false
 
-// 根据IP和掩码位，查网络和IP地址
+// 2、根据IP和掩码位，查网络和IP地址
 let data = SubnetMask.networkAndIpCalculator('127.0.0.1', 28);
-
 // 成功：data ==>
 // { 
 //     success: true,
@@ -49,8 +47,8 @@ let data = SubnetMask.networkAndIpCalculator('127.0.0.1', 28);
 //     message: 'errorInfo'
 // }
 
-// 检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中
+// 3、检测第一个参数ip是否属于第二个参数ip和第三个参数maskBit计算出的ip地址段中
 let rtn = SubnetMask.checkNetworkAndIpCalculator('127.1.1.2', '127.0.0.1', 28);
-
 // 返回： true 或 false
+
 ```
